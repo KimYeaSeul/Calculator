@@ -42,9 +42,6 @@ public class Calculator extends JFrame {
 			if(button_names[i] == "C") buttons[i].setBackground(Color.red);
 			else if((i >=4 && i<=6) || (i >= 8 && i<=10) || (i >=12 && i<=14)) buttons[i].setBackground(Color.black);
 			else buttons[i].setBackground(Color.gray);
-			if(button_names[i] == "0") {
-				
-			}
 			buttons[i].setForeground(Color.white);
 			buttons[i].setBorderPainted(false); // 테두리 없애주기
 			
