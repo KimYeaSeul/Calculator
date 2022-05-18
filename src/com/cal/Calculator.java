@@ -2,7 +2,8 @@ package com.cal;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,58 +12,101 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 public class Calculator extends JFrame {
 	// 화면 구현
-	private JTextField inputSpace;
-	private ArrayList<String> equation = new ArrayList<String>();
+	private final int width = 240;
+	private final int height = 370;
+	public JTextField inputSpace= new JTextField();
+	
+	private GridBagLayout grid = new GridBagLayout();
+	private GridBagConstraints gbc = new GridBagConstraints();
+	TitledBorder tB = new TitledBorder(new LineBorder(Color.gray, 1));
+
+//	ButtonActionListener bal = new ButtonActionListener();
+	
+	public ArrayList<String> equation = new ArrayList<String>();
 	String num = "";
 	private String prev_operation = "";
+	
 	public Calculator() {
 		setLayout(null);
 		
-		inputSpace = new JTextField();
 		inputSpace.setEditable(false); // 편집 불가능
-		inputSpace.setBackground(Color.WHITE); // 배경은 화이트
+		inputSpace.setBackground(Color.lightGray); // 배경은 화이트
 		inputSpace.setHorizontalAlignment(JTextField.RIGHT);  // 정렬 위치
 		inputSpace.setFont(new Font("Times", Font.BOLD, 50)); // 글씨 체
-		inputSpace.setBounds(8, 10, 270, 70); // x:8, y:10 위치 270x70 크기
-		
+		inputSpace.setBounds(0, 0, width, 70); // x:8, y:10 위치 270x70 크기
+		inputSpace.setBorder(new LineBorder(Color.gray, 0));
 		
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(4, 4, 10, 10)); // 격자형태로 배열
-		buttonPanel.setBounds(8, 90, 270, 235);
+//		buttonPanel.setLayout(new GridLayout(4, 4, 10, 10)); // 격자형태로 배열
+		buttonPanel.setLayout(grid);
+		buttonPanel.setBounds(0, 70, width, 274);
 		
-		String button_names[] = {"C","÷", "+","=", "7", "8", "9", "x","4", "5", "6", "-", "1", "2", "3","0"};
+		String button_names[] = {"C", "±","%", "÷", "7", "8", "9", "x","4", "5", "6", "-", "1", "2", "3","+","0", ".", "="};
+		String preference = "÷+=x-";
 		JButton buttons[] = new JButton[button_names.length];
 		
+		  //======
+			gbc.fill = GridBagConstraints.BOTH; // 꽉 채워줌
+	        gbc.weightx = 1.0; // x축 안 넘어감
+	        gbc.weighty = 1.0;// y축 안 넘어감
+	        //========
+		 int x = 0;
+		 int y = 0;
 		for(int i = 0; i<button_names.length; i++) {
 			buttons[i] = new JButton(button_names[i]);
 			buttons[i].setFont(new Font("Arial", Font.BOLD, 20));
-			if(button_names[i] == "C") buttons[i].setBackground(Color.red);
-			else if((i >=4 && i<=6) || (i >= 8 && i<=10) || (i >=12 && i<=14)) buttons[i].setBackground(Color.black);
-			else buttons[i].setBackground(Color.gray);
-			buttons[i].setForeground(Color.white);
-			buttons[i].setBorderPainted(false); // 테두리 없애주기
 			
+			if(preference.contains(button_names[i])) {
+				buttons[i].setBackground(new Color(255, 159, 9));
+			}
+//			System.out.println("x : "+ x + "y : "+ y);
+			if(button_names[i] == "0") {
+				make(buttons[i], x, y, 2, 1);
+				x++;
+			}else {
+				make(buttons[i], x, y, 1, 1);
+			}
+			
+			x++;
+			if(x > 3) {
+				x = 0;
+				y++;
+			}
+//			
 			buttons[i].addActionListener(new PadActionListener());
-			
+//			
+			buttons[i].setBorder(tB);
 			buttonPanel.add(buttons[i]);
 			buttons[i].setOpaque(true);
 		}
-
+		
 		add(inputSpace);
 		add(buttonPanel);
 		
 		setTitle("계산기");
 		setVisible(true);
-		setSize(300, 370);
+		setSize(width, height);
+		setBackground(Color.gray);
 		setLocationRelativeTo(null); // 화면 가운데에 띄우기
 		setResizable(false); // 사이즈조절 불가
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창을 닫을때 실행중인 프로그램 도 종료
 	}
 
+	public void make(JButton c, int x , int y, int w, int h) {
+		gbc.gridy = y;
+		gbc.gridx = x;
+		gbc.gridheight = h;
+		gbc.gridwidth = w;
+		grid.setConstraints(c, gbc);
+	}
+	
 	class PadActionListener implements ActionListener{
+		@Override
 		public void actionPerformed(ActionEvent e) { // 이벤트 처리!
 			String operation = e.getActionCommand(); // 어떤 버튼이 눌렸나.
 			if(operation.equals("C")) {
