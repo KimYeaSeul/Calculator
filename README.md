@@ -1,10 +1,10 @@
 # Calculator
-Toy Project - My Calculator
-맥북계산기를 따라서 만들어 보았습니다.
+#### Toy Project - My Calculator
+#### 맥북계산기를 따라서 만들어 보았습니다.
 
 https://user-images.githubusercontent.com/35164102/176006816-bf4ebc27-b36c-4a1c-881c-7056b813898a.mov
 
-### 맥북과 일치시키려면 보완 & 추가 해야 할 부분
+### 맥북계산기와 일치시키려면 보완 & 추가 해야 할 부분
 1. inputSpace에 현재 입력한 숫자만 나오게 설정
 2. 맥북은 우선순위 기능이 없다.(입력값 바로 처리)
 3. 플러스마이너스 기능 구현
@@ -17,4 +17,4 @@ https://user-images.githubusercontent.com/35164102/176006816-bf4ebc27-b36c-4a1c-
 10. 파일 하나에 코드 량이 많은것 같은데 나눌수 있을지
 11. 정규표현식 사용하여 조건문 줄일 수 있을지
 
-[GUI 계산기 만들기 블로그] (https://firstblog912.tistory.com/137)
+[GUI 계산기 만들기 블로그](https://firstblog912.tistory.com/137)
