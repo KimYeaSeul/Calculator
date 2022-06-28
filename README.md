@@ -1,5 +1,6 @@
 # Calculator
 #### Toy Project - My Calculator
+#### JAVA AWT & SWING 사용한 GUI 프로젝트
 #### 맥북계산기를 따라서 만들어 보았습니다.
 
 https://user-images.githubusercontent.com/35164102/176006816-bf4ebc27-b36c-4a1c-881c-7056b813898a.mov
